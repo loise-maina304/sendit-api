@@ -5,6 +5,7 @@ from datetime import datetime
 import httpx
 from dotenv import load_dotenv
 from fastapi import Depends, FastAPI, File, Form, HTTPException, Request, UploadFile
+from fastapi.responses import HTMLResponse
 from fastapi.security import OAuth2PasswordRequestForm
 from slowapi import Limiter, _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
@@ -492,10 +493,190 @@ def get_document_weather(
 # ============================================================
 
 
-@app.get("/")
-def root():
-    return {"message": "Welcome to SendIt API", "status": "running"}
+@app.get("/", response_class=HTMLResponse)
+async def portfolio():
+    return """
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Loise Maina - Backend Development Portfolio</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 40px;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .student-info {
+            background: #e8f4fd;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .admission {
+            font-size: 1.2em;
+            color: #2980b9;
+            font-weight: bold;
+        }
+        .assignment {
+            margin: 12px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #3498db;
+        }
+        .assignment:hover {
+            background: #e8f4fd;
+        }
+        .assignment a {
+            color: #0366d6;
+            text-decoration: none;
+            font-weight: 500;
+            display: block;
+        }
+        .badge {
+            display: inline-block;
+            background: #3498db;
+            color: white;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            margin-right: 10px;
+        }
+        .lesson-topic {
+            color: #7f8c8d;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            color: #95a5a6;
+            font-size: 0.9em;
+            border-top: 1px solid #ecf0f1;
+            padding-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
 
+<h1>📚 Backend Development Portfolio</h1>
+
+<div class="student-info">
+    <p><strong>Student Name:</strong> Loise Maina</p>
+    <p>🎓 <strong>Admission Number:</strong>
+    <span class="admission">C027-01-0852/2024</span></p>
+    <p>📧 <strong>Email:</strong> loise.maina24@students.dkut.ac.ke</p>
+</div>
+
+<h2>📝 Backend Assignments</h2>
+
+<p style="color:#7f8c8d;">
+    Click on any assignment to view the complete code on GitHub.
+</p>
+
+<div class="assignment">
+<a href="https://github.com/loise-maina304/cit-backend-course" target="_blank">
+<span class="badge">Lesson 1</span>
+HTTP & Your First API
+<div class="lesson-topic">— FastAPI + Uvicorn, HTTP Methods, Status Codes</div>
+</a>
+</div>
+
+<div class="assignment">
+<a href="https://github.com/loise-maina304/cit-backend-course" target="_blank">
+<span class="badge">Lesson 2</span>
+Docker - Packaging Your API
+<div class="lesson-topic">— Containers, Dockerfiles, Docker Compose</div>
+</a>
+</div>
+
+<div class="assignment">
+<a href="https://github.com/loise-maina304/cit-backend-course" target="_blank">
+<span class="badge">Lesson 3</span>
+Routing, Parameters & Request Bodies
+<div class="lesson-topic">— Path Parameters, Query Parameters, Pydantic Validation</div>
+</a>
+</div>
+
+<div class="assignment">
+<a href="https://github.com/loise-maina304/library-api" target="_blank">
+<span class="badge">Lesson 4</span>
+PostgreSQL & SQLModel – Your First Database
+<div class="lesson-topic">— ORM, Database Migrations, SQLModel</div>
+</a>
+</div>
+
+<div class="assignment">
+<a href="https://github.com/loise-maina304/product-api" target="_blank">
+<span class="badge">Lesson 5</span>
+CRUD Operations
+<div class="lesson-topic">— Create, Read, Update, Delete with Error Handling</div>
+</a>
+</div>
+
+<div class="assignment">
+<a href="https://github.com/loise-maina304/product-api" target="_blank">
+<span class="badge">Lesson 6</span>
+Error Handling & Validation
+<div class="lesson-topic">— HTTPException, Custom Validators, Global Handlers</div>
+</a>
+</div>
+
+<div class="assignment">
+<a href="https://github.com/loise-maina304/clinicguard-api" target="_blank">
+<span class="badge">Lesson 7</span>
+User Authentication – JWT & Password Hashing
+<div class="lesson-topic">— JWT Tokens, Password Hashing, Login/Register Endpoints</div>
+</a>
+</div>
+
+<div class="assignment">
+<a href="https://github.com/loise-maina304/clinicguard-api" target="_blank">
+<span class="badge">Lesson 8</span>
+Authorization & Rate Limiting
+<div class="lesson-topic">— RBAC, Dependency Injection, Rate Limiting</div>
+</a>
+</div>
+
+<div class="assignment">
+<a href="https://github.com/loise-maina304/sendit-api" target="_blank">
+<span class="badge">Lesson 9</span>
+File Uploads & External APIs
+<div class="lesson-topic">— File Validation, httpx, Environment Variables</div>
+</a>
+</div>
+
+<div class="assignment">
+<a href="https://github.com/loise-maina304/sendit-api" target="_blank">
+<span class="badge">Lesson 10</span>
+Testing & Deployment (Cloud)
+<div class="lesson-topic">— Pytest, CI/CD, Render Deployment</div>
+</a>
+</div>
+
+<div class="footer">
+<p>📍 Deployed on Render | 📅 Last Updated: August 2026</p>
+<p>Click any assignment link to view the source code on GitHub.</p>
+</div>
+
+</div>
+</body>
+</html>
+"""
 
 # ============================================================
 # WEBHOOK NOTIFICATIONS
