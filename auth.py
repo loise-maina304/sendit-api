@@ -1,14 +1,15 @@
 import os
 from datetime import datetime, timedelta
 
-from database.session import get_session
 from dotenv import load_dotenv
 from fastapi import Depends, HTTPException
 from fastapi.security import OAuth2PasswordBearer
 from jose import JWTError, jwt
-from models.user import User
 from passlib.context import CryptContext
 from sqlmodel import Session, select
+
+from database.session import get_session
+from models.user import User
 
 load_dotenv()
 

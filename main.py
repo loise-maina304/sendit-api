@@ -3,6 +3,14 @@ import os
 from datetime import datetime
 
 import httpx
+from dotenv import load_dotenv
+from fastapi import Depends, FastAPI, File, Form, HTTPException, Request, UploadFile
+from fastapi.security import OAuth2PasswordRequestForm
+from slowapi import Limiter, _rate_limit_exceeded_handler
+from slowapi.errors import RateLimitExceeded
+from slowapi.util import get_remote_address
+from sqlmodel import Session, select
+
 from auth import (
     create_access_token,
     get_current_admin,
@@ -12,16 +20,9 @@ from auth import (
     verify_password,
 )
 from database.session import create_db_and_tables, get_session
-from dotenv import load_dotenv
-from fastapi import Depends, FastAPI, File, Form, HTTPException, Request, UploadFile
-from fastapi.security import OAuth2PasswordRequestForm
 from models.document import Document, DocumentUpdate
 from models.user import User, UserCreate, UserResponse
 from services.weather import get_weather
-from slowapi import Limiter, _rate_limit_exceeded_handler
-from slowapi.errors import RateLimitExceeded
-from slowapi.util import get_remote_address
-from sqlmodel import Session, select
 
 load_dotenv()
 
